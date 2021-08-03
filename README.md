@@ -1,20 +1,59 @@
 
-# 疫情通
+# 疫情通 懒狗版本
 
-先使用configure.py设置需要填报的信息
-然后使用submit.py提交
+非常感谢 @Apache553 (apache553@outlook.com)  提供的原始代码
 
-定位信息可通过在configure时填在国外来跳过
-然后使用submit.py dump_geo来取得定位信息(不会提交)
-然后再重新configure
+非常感谢 @xinian (1161678627@qq.com) 提供的思路
 
-# 晨午检
+## Feature
 
-先使用configure_3chk.py设置需要填报的信息
-然后使用submit_3chk.py提交
+1. 自动填报 自动配置
+2. 随机生成地理位置 (坐标和地址)
+3. 可以在树莓派等平台上后台运行
 
-注意在对应的时间段进行提交
+## Usage
 
-# 另外的取得定位信息的方式
-访问https://blog.apache553.com/location.html
-大概不会好使，手机使用需给予定位权限
+### 配置
+
+```bash
+vim ./config_lazy.py
+```
+打开之后,在 `user_name` 和 `user_pswd` 中 按顺序填入需要填报的 **统一认证账号和密码**
+```python3
+# Demo
+user_name = ["16020110001","16020138001"]
+user_pswd = ["ThisUnitLoss","MyP@ssWord"]
+```
+之后程序会自动遍历字典并尝试对每一个用户进行填写
+
+### 测试
+
+```bash
+python3 ./submit_lazy.py
+```
+
+* 结果输出至控制台
+
+### 使用 (Linux/Debian下)
+ 
+ 挂机使用
+
+```bash
+python3 ./submit_lazy.py &
+```
+
+ 开启自启动 (经常断电的宿舍)
+
+在控制台里
+
+```bash
+sudo vim /etc/rc.local
+```
+
+在键盘上按下i键(进入编辑模式),之后在 exit 0 之前 填入
+
+```bash
+sudo python3 /home/pi/xidian-ncov-report/submit_lazy.py &
+```
+
+然后按下Esc键退出编辑,再敲入 `:w` 退出vim
