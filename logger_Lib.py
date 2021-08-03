@@ -19,7 +19,7 @@ def logger_init():
     global logger
     if platform.platform().lower().find('linux') >= 0:
         f_sysinfo = os.popen('uname -a').read()
-        if f_sysinfo.find('arm') >= 0:
+        if f_sysinfo.find('arm') >= 0 or f_sysinfo.find('aarch64')>=0:
             #说明此时是树莓派系统
             logger_dir = os.path.dirname(os.path.realpath(__file__))
             file_path = os.path.join(logger_dir,LFILE_NAME)
@@ -33,7 +33,9 @@ def logger_init():
             ch.setLevel(logging.DEBUG)
             ch.setFormatter(logging.Formatter('%(message)s'))
             logger.addHandler(ch)
-        fd = logging.handlers.RotatingFileHandler(file_path,mode="a",maxBytes=10*(10**6),backupCount=5)
+        if os.path.exists(file_path):
+            os.remove(file_path) #删除历史遗留的记录
+        fd = logging.handlers.RotatingFileHandler(file_path,mode="a",maxBytes=10*(10**6),backupCount=2)
         fd.setLevel(logging.INFO)
         fd.setFormatter(logging.Formatter(LOG_FORMAT))
         logger.addHandler(fd)

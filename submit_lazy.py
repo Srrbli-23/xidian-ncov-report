@@ -12,9 +12,7 @@ from logger_Lib import logger
 
 if __name__ == '__main__':
     try:
-        if os.path.exists('xdncov_auto.log'):
-            os.remove('xdncov_auto.log')
-        logger.info(f'程序开始运行\n\tCreated by Lsr')
+        logger.info(f'程序开始运行 pid={os.getpid()}\n\tCreated by Lsr')
         while True:
             hour = int(time.strftime("%H"))
             if 8>hour>13:
@@ -63,5 +61,8 @@ if __name__ == '__main__':
                 logger.info('alive')
                 time.sleep(90*60)
     except KeyboardInterrupt:
-        logger.info('程序手动退出 ... make exit()')
+        logger.info('程序手动退出 ...')
         exit(0)
+    except Exception as exc:
+        logger.error(f"{exc}")
+        exit(1)
