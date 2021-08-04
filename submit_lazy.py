@@ -15,7 +15,7 @@ if __name__ == '__main__':
         logger.info(f'程序开始运行 pid={os.getpid()}\n\tCreated by Lsr')
         while True:
             hour = int(time.strftime("%H"))
-            if 8>hour>13:
+            if 8<=hour<=13:
                 time.sleep(random.randint(30,75)*60+random.randint(0,55))
                 logger.info('开始填报疫情通')
                 for name_now,pswd_now in zip(conf.user_name,conf.user_pswd):
