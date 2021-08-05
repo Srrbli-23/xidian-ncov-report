@@ -42,7 +42,8 @@ def geo_generate(select):
     return (Q_now,R_now,lng_now,lat_now,address)
 
 def data_generate():
-    Q_now,R_now,lng_now,lat_now,address_now = geo_generate(random.randint(0,4))
+    geo_select = random.randint(0,4)
+    Q_now,R_now,lng_now,lat_now,address_now = geo_generate(geo_select)
     tw_now = random.randint(1,2)
     data = {\
         'sfzx': 1,
